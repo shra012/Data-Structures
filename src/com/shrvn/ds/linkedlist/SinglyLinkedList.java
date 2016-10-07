@@ -3,8 +3,8 @@ package com.shrvn.ds.linkedlist;
 public class SinglyLinkedList<E> {
 	// ---------------- nested Node class ---------------//
 	private static class Node<E> {
-		private E element;                    // reference to the element stored at this node
-		private Node<E> next;                 // reference to the subsequent node in the list
+		private E element;                     // reference to the element stored at this node
+		private Node<E> next;                  // reference to the subsequent node in the list
 
 		public Node(E e, Node<E> n) {
 			element = e;
@@ -44,7 +44,6 @@ public class SinglyLinkedList<E> {
 	}
 
 	/**
-	 * 
 	 * @return head (but does not remove) the first element
 	 */
 	public E first() {
@@ -54,7 +53,6 @@ public class SinglyLinkedList<E> {
 	}
 
 	/**
-	 * 
 	 * @return last (but does not remove) the last element
 	 */
 	public E last() {
@@ -67,7 +65,6 @@ public class SinglyLinkedList<E> {
 
 	/**
 	 * Adds element e to the front of the list
-	 * 
 	 * @param e
 	 */
 	public void addFirst(E e) {
