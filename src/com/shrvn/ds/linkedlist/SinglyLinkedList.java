@@ -22,6 +22,7 @@ public class SinglyLinkedList<E> {
 		public void setNext(Node<E> n) {
 			next = n;
 		}
+		
 	}
 
 	// ----------- end of nested Node class -----------//
