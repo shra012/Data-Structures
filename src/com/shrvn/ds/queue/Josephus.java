@@ -18,7 +18,7 @@ public class Josephus {
 	}
 	/* Builds a circular queue from an array of objects. */ 
 	public static <E> CircularQueue<E> buildQueue(E a[]) {
-		CircularQueue<E> queue = new ArrayQueue<>(10);
+		CircularQueue<E> queue = new LinkedCircularQueue<>();
 		for (int i=0; i<a.length; i++)
 			queue.enqueue(a[i]);
 		
@@ -27,9 +27,22 @@ public class Josephus {
 	
 	 /** Tester method */
 	public static void main(String[] args) {
-		String[] a1 = {"Alice", "Bob", "Cindy", "Doug", "Ed", "Fred"};
+		String[] a1 = {"Alice", "Bob", "Cindy", "Doug", "Ed", "Fred","kumar","shravan","selva"};
+		/*CircularQueue<String> queue = new ArrayQueue<>(10);
+		for (int j = 0; j < a1.length; j++) {
+			queue.enqueue(a1[j]);	
+		}
+		queue.dequeue();
+		queue.enqueue("ganesh");
+		queue.enqueue("Ram");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(queue.dequeue());	
+		}*/
+		
+		
 		String[] a2 = {"Gene", "Hope", "Irene", "Jack", "Kim", "Lance"}; 
 		String[] a3 = {"Mike", "Roberto"};
+		
 		System.out.println("First winner is " + JosephusWinner(buildQueue(a1), 3));
 		System.out.println("Second winner is " + JosephusWinner(buildQueue(a2), 10));
 		System.out.println("Third winner is " + JosephusWinner(buildQueue(a3), 7));

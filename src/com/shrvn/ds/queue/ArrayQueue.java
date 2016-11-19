@@ -27,8 +27,8 @@ public class ArrayQueue<E>  implements Queue<E>,CircularQueue<E> {
 		if (size() == data.length) 
 			throw new IllegalStateException("Queue is full");
 		
-		int avail = (topIndex + size) % data.length; // use modular arithmetic
-		data[avail] = e;
+		int available = (topIndex + size) % data.length; // use modular arithmetic
+		data[available] = e;
 		size++;
 	}
 
