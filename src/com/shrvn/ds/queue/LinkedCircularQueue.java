@@ -3,7 +3,7 @@ package com.shrvn.ds.queue;
 import com.shrvn.ds.linkedlist.CircularlyLinkedList;
 
 public class LinkedCircularQueue<E> implements CircularQueue<E> {
-	private CircularlyLinkedList<E> list = new CircularlyLinkedList<>(); // an empty list
+	private CircularlyLinkedList<E> list = new CircularlyLinkedList<E>(); // an empty list
 	@Override
 	public int size() {
 		return list.size();
