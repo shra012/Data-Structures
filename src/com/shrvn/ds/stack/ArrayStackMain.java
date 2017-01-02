@@ -1,9 +1,6 @@
-package com.shrvn.main.stack;
+package com.shrvn.ds.stack;
 
 import java.util.Scanner;
-
-import com.shrvn.ds.stack.ArrayStack;
-import com.shrvn.ds.stack.Stack;
 
 public class ArrayStackMain<E>{
 	/**
