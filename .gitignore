@@ -3,3 +3,5 @@ git rm --cached .project
 git rm --cached .classpath
 
 *.class
+.idea
+.settings
