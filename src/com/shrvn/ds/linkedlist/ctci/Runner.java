@@ -5,52 +5,30 @@ import com.shrvn.ds.linkedlist.SinglyLinkedList;
 public class Runner {
     public static void main(String[] args) {
         Runner run = new Runner();
-        SinglyLinkedList list = new SinglyLinkedList<Integer>();
-        SinglyLinkedList list1 = new SinglyLinkedList<Integer>();
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+        //SinglyLinkedList<Integer> list1 = new SinglyLinkedList<Integer>();
         list.addLast(1);
         list.addLast(2);
+        list.addLast(3);
+        list.addLast(4);
+        list.addLast(5);
+        list.addLast(6);
 
-        list1.addLast(1);
-        list1.addLast(2);
 
         /*System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
         list.weave(list.getHead(),list.getMidNode());
         run.printLinkedList(list.getHead());*/
-
-        run.printLinkedList(run.merge(list, list1));
+        run.printLinkedList(list.getHead());
+        //run.printLinkedList(run.sortedMerge(list.getHead(), list1.getHead()));
+        list.deleteByIndex(0);
+        System.out.println(list.first());
+        System.out.println(list.last());
+        run.printLinkedList(list.getHead());
+        
     }
 
-
-    public SinglyLinkedList.Node merge(SinglyLinkedList<Integer> list1, SinglyLinkedList<Integer> list2) {
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
-        list.addLast(0);
-        SinglyLinkedList.Node<Integer> result = list.getHead();
-        SinglyLinkedList.Node<Integer> head1 = list1.getHead();
-        SinglyLinkedList.Node<Integer> head2 = list2.getHead();
-
-        while (true) {
-            if (head1 == null) {
-                result.setNext(head2);
-                break;
-            } else if (head2 == null) {
-                result.setNext(head1);
-                break;
-            } else {
-                if (head1.getElement() > head2.getElement()) {
-                    result.setNext(head2);
-                    head2 = head2.getNext();
-                } else {
-                    result.setNext(head1);
-                    head1 = head1.getNext();
-                }
-                result = result.getNext();
-            }
-        }
-        return list.getHead().getNext();
-    }
-
-    SinglyLinkedList.Node sortedMerge(SinglyLinkedList.Node<Integer> headA, SinglyLinkedList.Node<Integer> headB) {
+    SinglyLinkedList.Node<Integer> sortedMerge(SinglyLinkedList.Node<Integer> headA, SinglyLinkedList.Node<Integer> headB) {
     /* a dummy first node to
        hang the result on */
         SinglyLinkedList.Node<Integer> dummyNode = new SinglyLinkedList.Node<Integer>(0, null);
