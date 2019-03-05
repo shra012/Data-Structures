@@ -78,7 +78,7 @@ public class SinglyLinkedList<E> {
 	/**
 	 * Adds element e to the front of the list
 	 *
-	 * @param e
+	 * @param e The element to be added.
 	 */
 	public void addFirst(E e) {
 		head = new Node<>(e, head);
@@ -91,7 +91,7 @@ public class SinglyLinkedList<E> {
 	/**
 	 * Adds element e to the end of the list
 	 *
-	 * @param e
+	 * @param e The element to be added.
 	 */
 	public void addLast(E e) {
 		Node<E> newest = new Node<>(e, null);  // node will eventually be the tail
@@ -106,7 +106,7 @@ public class SinglyLinkedList<E> {
 	/**
 	 * Removes and returns the first element
 	 *
-	 * @return E
+	 * @return E The element that has been removed.
 	 */
 	public E removeFirst() {
 		if (isEmpty()) return null;
@@ -123,11 +123,11 @@ public class SinglyLinkedList<E> {
 
 	/**
 	 * Deletes the node of linked list by index.
-	 * @param index
-	 * @return
+	 * @param index the index which indicates the position of the node which is to be deleted.
+	 * @return Node which has been removed.
 	 */
 	public Node<E> deleteByIndex(Integer index) {
-		if (isEmpty()) return null;
+		if (isEmpty() || index<0) return null;
 		if(index > size()+1) return null;
 		Node<E> current = head;
 		if(index==0) {
@@ -163,32 +163,87 @@ public class SinglyLinkedList<E> {
 			return "Empty";
 
 		Node<E> node = head;
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		for (int i = 0; ; i++) {
-			result += node.element;
+			result.append(node.element);
 			if (i==size-1)
-				return result;                         // return the list when the size is met. 
-			result += " ";
+				return result.toString();                         // return the list when the size is met.
+			result.append(" ");
 			node = node.getNext();
 		}
 	}
 	// -------Length methods of Singly Linked List------//
+
+    /**
+     * Finds the length of the LinkedList recursively.
+     * @return Integer The length of the linked list.
+     */
 	public Integer recursiveLength() {
 		return  recursiveLength(head);
 	}
 
+    /**
+     * Finds the length of the LinkedList recursively.
+     * @param current the node which is to be incremented until the next link is null.
+     * * @return Integer The length of the linked list.
+     */
 	private Integer recursiveLength(Node<E> current) {
 		return current!=null ? recursiveLength(current.getNext())+1 : 0;
 	}
 	// -------Searching methods of Singly Linked List------//
+
+	/**
+	 * Check if the element exists in the LinkedList.
+	 * @param element The element that needs to be searched.
+	 * @return Boolean which indicates the element is added in the linked list.
+	 */
 	public Boolean recursiveSearch(E element) {
 		if(null==element) return Boolean.FALSE;
 		return contains(element,head);
 	}
+
+	/**
+	 * Check if the LinkedList contains the element.
+	 * @param element the element to be searched.
+	 * @param current the node link to be looked through.
+	 * @return Boolean which indicates the element is added in the linked list.
+	 */
 	private Boolean contains(E element,Node<E> current) {
 		if(null==current) return Boolean.FALSE;
 		return  element.equals(current.element) ? Boolean.TRUE : contains(element,current.getNext());
 	}
+
+	/**
+	 * Finds the element at a given index.
+	 * @param index the position of the element in the linked list that has to be returned.
+	 * @return The element at the index.
+	 */
+	public E getElement(Integer index){
+	    if(head==null ) return null;
+	    Node<E> expected = getElement(head,index);
+	    return expected!=null?expected.getElement():null;
+    }
+
+	/**
+	 * Takes head pointer of the linked list and index
+	 * as arguments and return data at index
+	 * @param current current the node in the given position in the linked list.
+	 * @param index the current position of the node in the linked list.
+	 * @return The element at the index.
+	 */
+	private Node<E> getElement( Node<E> current, Integer index) {
+		assert (index<size && index>0): "Invalid index. The value is greater than or lesser than the size of linked list" ;
+		int count = 1;
+
+		//if count equal too n return node.data
+		if(count == index)
+			return current;
+
+		//recursively decrease n and increase
+		// head to next pointer
+		return getElement(current.getNext(), index- 1);
+	}
+
 	// -------Sorting methods of Singly Linked List------//
 
 	// -------Special Techniques of Singly Linked List------//
