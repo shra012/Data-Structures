@@ -117,10 +117,10 @@ public class SinglyLinkedList<E> {
 			tail = null;
 		return answer;
 	}
-	
+
 	// -------Detele methods of Singly Linked List------//
-	
-	
+
+
 	/**
 	 * Deletes the node of linked list by index.
 	 * @param index
@@ -129,30 +129,30 @@ public class SinglyLinkedList<E> {
 	public Node<E> deleteByIndex(Integer index) {
 		if (isEmpty()) return null;
 		if(index > size()+1) return null;
-		Node<E> tempHead = head;
+		Node<E> current = head;
 		if(index==0) {
-			head = tempHead.getNext();               // when the index is 0 replace head
+			head = current.getNext();               // when the index is 0 replace head
 		}
 
 		for(int i=1 ; i<index;i++) {
-			tempHead = tempHead.getNext();
+			current = current.getNext();
 		}
 		if(index!=0) {
-			tempHead.setNext(tempHead.getNext().getNext());
+			current.setNext(current.getNext().getNext());
 		}
 		size--;
-		
+
 		if (size == 0)                              // special case : when the last node is deleted update tail.
 			tail = null;
-		
+
 		if(size==index)
-			tail=tempHead;                            
-		
-		return tempHead;
+			tail=current;                            
+
+		return current;
 	}
-	
+
 	// -------Print methods of Singly Linked List------//
-	
+
 	/**
 	 * Prints the contents of all the nodes of the linked list.
 	 * @return String of printed elements of all nodes.
@@ -172,7 +172,25 @@ public class SinglyLinkedList<E> {
 			node = node.getNext();
 		}
 	}
-	
+	// -------Length methods of Singly Linked List------//
+	public Integer recursiveLength() {
+		return  recursiveLength(head);
+	}
+
+	private Integer recursiveLength(Node<E> current) {
+		return current!=null ? recursiveLength(current.getNext())+1 : 0;
+	}
+	// -------Searching methods of Singly Linked List------//
+	public Boolean recursiveSearch(E element) {
+		if(null==element) return Boolean.FALSE;
+		return contains(element,head);
+	}
+	private Boolean contains(E element,Node<E> current) {
+		if(null==current) return Boolean.FALSE;
+		return  element.equals(current.element) ? Boolean.TRUE : contains(element,current.getNext());
+	}
+	// -------Sorting methods of Singly Linked List------//
+
 	// -------Special Techniques of Singly Linked List------//
 
 	/**
@@ -180,10 +198,10 @@ public class SinglyLinkedList<E> {
 	 * @return Node<E> The middle node of the linked list.
 	 */
 	public Node<E> getMidNode() {
-		Node<E> headNode = head;
+		Node<E> current = head;
 		Node<E> midNode = head;
-		while (headNode!=null && headNode.getNext() != null) {
-			headNode = headNode.getNext().getNext();         // fast pointer updates two nodes per iteration
+		while (current!=null && current.getNext() != null) {
+			current = current.getNext().getNext();         // fast pointer updates two nodes per iteration
 			midNode = midNode.getNext();                     // slow pointer updates each node per iteration 
 		}
 		return midNode;

@@ -122,12 +122,10 @@ public class Map<K, V> {
                     add(node.key, node.value);
                     node = node.next;
                 }
-                add(node.key, node.value);
-                node = node.next;
-
             }
         }
     }
+    
     public static void main(String[] args) {
         Map<String, Integer>map = new Map<>();
         map.add("this",1 );
@@ -140,6 +138,5 @@ public class Map<K, V> {
         System.out.println(map.size());
         System.out.println(map.isEmpty());
     }
-
 
 }

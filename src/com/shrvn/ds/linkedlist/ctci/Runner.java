@@ -14,17 +14,29 @@ public class Runner {
         list.addLast(5);
         list.addLast(6);
 
-
         /*System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
         list.weave(list.getHead(),list.getMidNode());
         run.printLinkedList(list.getHead());*/
         run.printLinkedList(list.getHead());
         //run.printLinkedList(run.sortedMerge(list.getHead(), list1.getHead()));
-        list.deleteByIndex(0);
+        /**
+         * Check for delete by index
+         */
+        /*list.deleteByIndex(0);
         System.out.println(list.first());
         System.out.println(list.last());
-        run.printLinkedList(list.getHead());
+        run.printLinkedList(list.getHead());*/
+        /**
+         * Check for length by recursion
+         */
+        /*System.out.println(list.recursiveLength());
+        System.out.println(list.size());*/
+        /**
+         * Check for length by recursion
+         */
+        System.out.println(list.recursiveSearch(11));
+        
         
     }
 
@@ -70,6 +82,7 @@ public class Runner {
 
 
     public void printLinkedList(SinglyLinkedList.Node<?> node) {
+    	if(node==null) return;
         SinglyLinkedList.Node<?> tempHead = node;
         while (tempHead != null) {
             System.out.print(tempHead.getElement());
