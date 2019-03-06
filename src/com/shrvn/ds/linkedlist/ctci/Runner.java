@@ -36,8 +36,7 @@ public class Runner {
          * Check for length by recursion
          */
         /*System.out.println(list.recursiveSearch(11));*/
-        System.out.println(list.getElement(1));
-        
+        System.out.println(list.getNthNodeFromTail(6));
         
     }
 

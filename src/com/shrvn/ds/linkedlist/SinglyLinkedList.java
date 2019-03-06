@@ -212,6 +212,16 @@ public class SinglyLinkedList<E> {
 		if(null==current) return Boolean.FALSE;
 		return  element.equals(current.element) ? Boolean.TRUE : contains(element,current.getNext());
 	}
+	
+	/**
+	 * Finds the element at a given index from the last node.
+	 * @param index the position of the element in the linked list that has to be returned.
+	 * @return The element at the index.
+	 */
+	public E getNthNodeFromTail(Integer index){
+		index = size-index+1;
+		return getElement(index);
+	}
 
 	/**
 	 * Finds the element at a given index.
