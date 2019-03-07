@@ -25,7 +25,16 @@ public class SinglyLinkedList<E> {
 
 		@Override
 		public String toString() { return element.toString(); }
-	}
+
+        @Override
+        public boolean equals(Object obj) {
+            E compareElement = ((Node<E>) obj).getElement();
+            E element = this.getElement();
+            if(element==null && compareElement==null) return true;
+            if(element==null) return false;
+            return element.equals(compareElement);
+        }
+    }
 
 	// ----------- end of nested Node class -----------//
 
@@ -63,6 +72,15 @@ public class SinglyLinkedList<E> {
 			return null;
 		return head;
 	}
+
+    /**
+     * @return tail (but does not remove) the first element
+     */
+    public Node<E> getTail() {
+        if (isEmpty())
+            return null;
+        return tail;
+    }
 
 	/**
 	 * @return last (but does not remove) the last element
@@ -256,7 +274,7 @@ public class SinglyLinkedList<E> {
 
 	/**
 	 * To find the number of times the element passed exists in the linked list
-	 * @param element The element for which 
+	 * @param element The element for which
 	 * @return
 	 */
 	public Integer countInstance(E element){

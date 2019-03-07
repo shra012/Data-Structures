@@ -1,18 +1,20 @@
 package com.shrvn.ds.linkedlist.ctci;
 
 import com.shrvn.ds.linkedlist.SinglyLinkedList;
+import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
+import com.shrvn.ds.stack.ArrayStack;
+import com.shrvn.ds.stack.Stack;
 
 public class Runner {
     public static void main(String[] args) {
         Runner run = new Runner();
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+        SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
         //SinglyLinkedList<Integer> list1 = new SinglyLinkedList<Integer>();
-        list.addLast(1);
-        list.addLast(1);
-        list.addLast(1);
-        list.addLast(1);
-        list.addLast(1);
-        list.addLast(1);
+        list.addLast('T');
+        list.addLast('X');
+        list.addLast('X');
+        list.addLast('T');
+        
 
         /*System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
@@ -36,8 +38,36 @@ public class Runner {
          * Check for length by recursion
          */
         /*System.out.println(list.recursiveSearch(11));*/
-        System.out.println(list.countInstance(2));
+        /**
+         * Check for Loops in linked list and length of loop
+         */
+       /* list.getTail().setNext(list.getMidNode());*/
+        /*System.out.println(run.getLength(list.getHead()));*/
+
+        System.out.println(run.checkPalindrome(list));
+
         
+    }
+
+    public Boolean checkPalindrome(SinglyLinkedList<?> list){
+        Node<?> node = list.getHead();
+        ArrayStack<Node<?>> stack = new ArrayStack<Node<?>>();
+        if(list.isEmpty()) return Boolean.FALSE;
+        while(node!=null){
+            stack.push(node);
+            node = node.getNext();
+        }
+        node = list.getHead();
+        while(node!=null){
+            Node<?> poppedNode = stack.pop();
+            if(poppedNode.equals(node)) {
+                node = node.getNext();
+                continue;
+            }
+            else
+                return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
     SinglyLinkedList.Node<Integer> sortedMerge(SinglyLinkedList.Node<Integer> headA, SinglyLinkedList.Node<Integer> headB) {
@@ -91,6 +121,30 @@ public class Runner {
             tempHead = tempHead.getNext();
         }
         System.out.println("");
+    }
+
+    public Integer getLength(Node current) {
+        Node<?> fp = current;
+        Node<?> sp = current;
+        while (fp!=null && fp.getNext() != null) {
+            fp = fp.getNext().getNext();         // fast pointer updates two nodes per iteration
+            sp = sp.getNext();                     // slow pointer updates each node per iteration
+            if(fp.equals(sp))
+              return countNodes(sp);
+        }
+        return null;
+    }
+
+    public Integer countNodes(Node<?> sp){
+        Node<?> current = sp;
+        int count = 0;
+        while(current!=null){
+            current=current.getNext();
+            count++;
+            if(sp.equals(current))
+                return count;
+        }
+        return count;
     }
 
 }
