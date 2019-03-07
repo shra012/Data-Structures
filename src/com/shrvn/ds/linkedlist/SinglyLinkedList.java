@@ -254,6 +254,30 @@ public class SinglyLinkedList<E> {
 		return getElement(current.getNext(), index- 1);
 	}
 
+	/**
+	 * To find the number of times the element passed exists in the linked list
+	 * @param element The element for which 
+	 * @return
+	 */
+	public Integer countInstance(E element){
+		if(isEmpty()) return null;
+		return count(element,head,0);
+	}
+
+	/**
+	 *
+	 * @param element
+	 * @param current
+	 * @param count
+	 * @return
+	 */
+	private Integer count(E element,Node<E> current,Integer count){
+		if(current.getElement().equals(element)){
+			count++;
+		}
+		return current.getNext()!=null ? count(element,current.getNext(),count):count;
+	}
+
 	// -------Sorting methods of Singly Linked List------//
 
 	// -------Special Techniques of Singly Linked List------//

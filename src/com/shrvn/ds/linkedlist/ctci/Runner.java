@@ -5,14 +5,14 @@ import com.shrvn.ds.linkedlist.SinglyLinkedList;
 public class Runner {
     public static void main(String[] args) {
         Runner run = new Runner();
-        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
         //SinglyLinkedList<Integer> list1 = new SinglyLinkedList<Integer>();
-        list.addLast("shravan");
-        list.addLast("guru");
-        list.addLast("ganesh");
-        list.addLast("dhanushan");
-        list.addLast("selva");
-        list.addLast("vaue");
+        list.addLast(1);
+        list.addLast(1);
+        list.addLast(1);
+        list.addLast(1);
+        list.addLast(1);
+        list.addLast(1);
 
         /*System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
@@ -36,7 +36,7 @@ public class Runner {
          * Check for length by recursion
          */
         /*System.out.println(list.recursiveSearch(11));*/
-        System.out.println(list.getNthNodeFromTail(6));
+        System.out.println(list.countInstance(2));
         
     }
 
