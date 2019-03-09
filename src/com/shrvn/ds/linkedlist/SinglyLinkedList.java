@@ -47,6 +47,16 @@ public class SinglyLinkedList<E> {
 		// constructs an initially empty list
 	}
 
+    public void increaseSize() {
+	    if(isEmpty()) return;
+        size+=1;
+    }
+
+    public void decreaseSize() {
+        if(isEmpty()) return;
+        size-=1;
+    }
+
 	public int size() {
 		return size;
 	}
@@ -164,7 +174,7 @@ public class SinglyLinkedList<E> {
 			tail = null;
 
 		if(size==index)
-			tail=current;                            
+			tail=current;
 
 		return current;
 	}
@@ -230,7 +240,7 @@ public class SinglyLinkedList<E> {
 		if(null==current) return Boolean.FALSE;
 		return  element.equals(current.element) ? Boolean.TRUE : contains(element,current.getNext());
 	}
-	
+
 	/**
 	 * Finds the element at a given index from the last node.
 	 * @param index the position of the element in the linked list that has to be returned.
@@ -309,7 +319,7 @@ public class SinglyLinkedList<E> {
 		Node<E> midNode = head;
 		while (current!=null && current.getNext() != null) {
 			current = current.getNext().getNext();         // fast pointer updates two nodes per iteration
-			midNode = midNode.getNext();                     // slow pointer updates each node per iteration 
+			midNode = midNode.getNext();                     // slow pointer updates each node per iteration
 		}
 		return midNode;
 	}

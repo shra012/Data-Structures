@@ -8,19 +8,11 @@ import com.shrvn.ds.stack.Stack;
 public class Runner {
     public static void main(String[] args) {
         Runner run = new Runner();
-        SinglyLinkedList<Character> list = new SinglyLinkedList<Character>();
-        //SinglyLinkedList<Integer> list1 = new SinglyLinkedList<Integer>();
-        list.addLast('T');
-        list.addLast('X');
-        list.addLast('X');
-        list.addLast('T');
-        
 
         /*System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
         list.weave(list.getHead(),list.getMidNode());
         run.printLinkedList(list.getHead());*/
-        run.printLinkedList(list.getHead());
         //run.printLinkedList(run.sortedMerge(list.getHead(), list1.getHead()));
         /**
          * Check for delete by index
@@ -43,10 +35,37 @@ public class Runner {
          */
        /* list.getTail().setNext(list.getMidNode());*/
         /*System.out.println(run.getLength(list.getHead()));*/
+        /**
+         * Check id a given characters in a linked list is a Palindrome
+         */
+        /*SinglyLinkedList<Character> list = createList('R','A','D','A','R');
+        run.printLinkedList(list.getHead());
+        System.out.println(run.checkPalindrome(list));*/
 
-        System.out.println(run.checkPalindrome(list));
+        SinglyLinkedList<Integer> list = createList(1,1,2,2,3);
+        run.printLinkedList(list.getHead());
+        System.out.println(run.removeDuplicate(list));
+    }
 
-        
+    public <E> SinglyLinkedList<E> removeDuplicate(SinglyLinkedList<E> list){
+        Node<E> current = list.getHead();
+        if(list.isEmpty()) return null;
+        while(current.getNext()!=null){
+            if(current.getElement() == current.getNext().getElement() ) {
+                current.setNext(current.getNext().getNext());
+                list.decreaseSize();
+            }
+            current = current.getNext();
+        }
+        return list;
+    }
+
+    public static <E> SinglyLinkedList<E> createList(E... args){
+        SinglyLinkedList<E> list = new SinglyLinkedList<E>();
+        for(E arg : args){
+            list.addLast(arg);
+        }
+        return list;
     }
 
     public Boolean checkPalindrome(SinglyLinkedList<?> list){
