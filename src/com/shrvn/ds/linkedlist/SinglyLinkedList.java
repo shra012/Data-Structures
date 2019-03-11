@@ -310,7 +310,24 @@ public class SinglyLinkedList<E> {
 	// -------Sorting methods of Singly Linked List------//
 
 	// -------Special Techniques of Singly Linked List------//
-
+    public void removeDuplicates(){
+	    Node<E> current = head;
+	    while(current!=null){
+	        Node<E> previous = current;
+            Node<E> after = current.getNext();
+	        while(after!=null){
+	            if(current.getElement().equals(after.getElement())){
+	                previous.setNext(after.getNext());
+	                decreaseSize();
+                    after = after.getNext();
+                }else {
+                    previous = after;
+                    after = after.getNext();
+                }
+            }
+	        current=current.getNext();
+        }
+    }
 	/**
 	 * Used the Runner Technique to find the middle node of the linked list
 	 * @return Node<E> The middle node of the linked list.

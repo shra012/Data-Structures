@@ -32,7 +32,7 @@ public class Runner {
         /**
          * Check for Loops in linked list and length of loop
          */
-       /* list.getTail().setNext(list.getMidNode());*/
+        /* list.getTail().setNext(list.getMidNode());*/
         /*System.out.println(run.getLength(list.getHead()));*/
         /**
          * Check id a given characters in a linked list is a Palindrome
@@ -43,13 +43,16 @@ public class Runner {
         /**
          * Remove the duplicates in a given in a sorted linked list 
          */
-        SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
+        /*SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
         run.printLinkedList(list.getHead());
         //System.out.println(run.removeDuplicate(list));
         run.removeRecursiveDuplicate(list.getHead());
+        run.printLinkedList(list.getHead());*/
+        SinglyLinkedList<Integer> list = createList(1, 23, 2, 2, 3, 3, 3, 23, 23);
         run.printLinkedList(list.getHead());
+        //list.removeDuplicates();
+        run.printLinkedList(run.sortedMerge(list.getHead(), list.getMidNode()));
     }
-    
     /* Methods for removing Duplicates start*/
     public <E> SinglyLinkedList<E> removeDuplicate(SinglyLinkedList<E> list){
         Node<E> current = list.getHead();
