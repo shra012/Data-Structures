@@ -79,7 +79,7 @@ public class Runner {
     /* ******** Methods for removing Duplicates end ******** */
     
     /* Method for creating the Linked List */
-    @SafeVarargs
+    @SafeVarargs // Added safe variable arguments to avoid heap pollution.
 	public static <E> SinglyLinkedList<E> createList(E... args){
         SinglyLinkedList<E> list = new SinglyLinkedList<E>();
         for(E arg : args){
