@@ -28,7 +28,8 @@ public class SinglyLinkedList<E> {
 
         @Override
         public boolean equals(Object obj) {
-            E compareElement = ((Node<E>) obj).getElement();
+            @SuppressWarnings("unchecked")
+			E compareElement = ((Node<E>) obj).getElement();
             E element = this.getElement();
             if(element==null && compareElement==null) return true;
             if(element==null) return false;

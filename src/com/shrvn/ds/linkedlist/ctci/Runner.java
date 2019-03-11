@@ -3,7 +3,6 @@ package com.shrvn.ds.linkedlist.ctci;
 import com.shrvn.ds.linkedlist.SinglyLinkedList;
 import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
 import com.shrvn.ds.stack.ArrayStack;
-import com.shrvn.ds.stack.Stack;
 
 public class Runner {
     public static void main(String[] args) {
@@ -41,12 +40,17 @@ public class Runner {
         /*SinglyLinkedList<Character> list = createList('R','A','D','A','R');
         run.printLinkedList(list.getHead());
         System.out.println(run.checkPalindrome(list));*/
-
-        SinglyLinkedList<Integer> list = createList(1,1,2,2,3);
+        /**
+         * Remove the duplicates in a given in a sorted linked list 
+         */
+        SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
         run.printLinkedList(list.getHead());
-        System.out.println(run.removeDuplicate(list));
+        //System.out.println(run.removeDuplicate(list));
+        run.removeRecursiveDuplicate(list.getHead());
+        run.printLinkedList(list.getHead());
     }
-
+    
+    /* Methods for removing Duplicates start*/
     public <E> SinglyLinkedList<E> removeDuplicate(SinglyLinkedList<E> list){
         Node<E> current = list.getHead();
         if(list.isEmpty()) return null;
@@ -54,20 +58,38 @@ public class Runner {
             if(current.getElement() == current.getNext().getElement() ) {
                 current.setNext(current.getNext().getNext());
                 list.decreaseSize();
+            }else {
+            	current = current.getNext();
             }
-            current = current.getNext();
+            
         }
         return list;
     }
-
-    public static <E> SinglyLinkedList<E> createList(E... args){
+    
+    public <E> void removeRecursiveDuplicate(Node<E> current){
+    	if(current.getNext()==null) return;
+    	if(current.getElement() == current.getNext().getElement() ) {
+    		current.setNext(current.getNext().getNext());
+    		removeRecursiveDuplicate(current);
+    	}else {
+    		removeRecursiveDuplicate(current.getNext());
+    	}
+    }
+    
+    /* ******** Methods for removing Duplicates end ******** */
+    
+    /* Method for creating the Linked List */
+    @SafeVarargs
+	public static <E> SinglyLinkedList<E> createList(E... args){
         SinglyLinkedList<E> list = new SinglyLinkedList<E>();
         for(E arg : args){
             list.addLast(arg);
         }
         return list;
     }
-
+    /* ******** Method for creating the Linked List ******** */
+    
+    /* Method for checking if the elements are Palindrome */
     public Boolean checkPalindrome(SinglyLinkedList<?> list){
         Node<?> node = list.getHead();
         ArrayStack<Node<?>> stack = new ArrayStack<Node<?>>();
@@ -88,46 +110,45 @@ public class Runner {
         }
         return Boolean.TRUE;
     }
-
+    
+    /* ******** Method for checking if the elements are Palindrome ******** */
+    
+    /* Method for merging two sorted linked list and maintain the sorted order in the newly created list */
     SinglyLinkedList.Node<Integer> sortedMerge(SinglyLinkedList.Node<Integer> headA, SinglyLinkedList.Node<Integer> headB) {
-    /* a dummy first node to
-       hang the result on */
-        SinglyLinkedList.Node<Integer> dummyNode = new SinglyLinkedList.Node<Integer>(0, null);
 
-    /* tail points to the
-    last result node */
-        SinglyLinkedList.Node<Integer> tail = dummyNode;
-        while (true) {
+    	/* a dummy first node to hang the result on */
+    	SinglyLinkedList.Node<Integer> dummyNode = new SinglyLinkedList.Node<Integer>(0, null);
 
-        /* if either list runs out,
-        use the other list */
-            if (headA == null) {
-                tail.setNext(headB);
-                break;
-            }
-            if (headB == null) {
-                tail.setNext(headA);
-                break;
-            }
+    	/* tail points to the last result node */
+    	SinglyLinkedList.Node<Integer> tail = dummyNode;
+    	while (true) {
 
-        /* Compare the data of the two
-        lists whichever lists' data is
-        smaller, append it into tail and
-        advance the head to the next Node
-        */
-            if (headA.getElement() <= headB.getElement()) {
-                tail.setNext(headA);
-                headA = headA.getNext();
-            } else {
-                tail.setNext(headB);
-                headB = headB.getNext();
-            }
+    		/* if either list runs out,use the other list */
+    		if (headA == null) {
+    			tail.setNext(headB);
+    			break;
+    		}
+    		if (headB == null) {
+    			tail.setNext(headA);
+    			break;
+    		}
 
-            /* Advance the tail */
-            tail = tail.getNext();
-        }
-        return dummyNode.getNext();
+    		/* Compare the data of the two lists whichever lists' data is smaller, append it into tail and advance the head to the next Node */
+    		if (headA.getElement() <= headB.getElement()) {
+    			tail.setNext(headA);
+    			headA = headA.getNext();
+    		} else {
+    			tail.setNext(headB);
+    			headB = headB.getNext();
+    		}
+
+    		/* Advance the tail */
+    		tail = tail.getNext();
+    	}
+    	return dummyNode.getNext();
     }
+    
+    /* ******** Method for merging two sorted linked list ******** */
 
 
     public void printLinkedList(SinglyLinkedList.Node<?> node) {
@@ -141,10 +162,11 @@ public class Runner {
         }
         System.out.println("");
     }
-
-    public Integer getLength(Node current) {
-        Node<?> fp = current;
-        Node<?> sp = current;
+    
+    /* Finding the length of a loop in a chained linked list */
+    public <E> Integer getLength(Node<E> current) {
+        Node<E> fp = current;
+        Node<E> sp = current;
         while (fp!=null && fp.getNext() != null) {
             fp = fp.getNext().getNext();         // fast pointer updates two nodes per iteration
             sp = sp.getNext();                     // slow pointer updates each node per iteration
@@ -154,8 +176,8 @@ public class Runner {
         return null;
     }
 
-    public Integer countNodes(Node<?> sp){
-        Node<?> current = sp;
+    public <E> Integer countNodes(Node<E> sp){
+        Node<E> current = sp;
         int count = 0;
         while(current!=null){
             current=current.getNext();
@@ -165,5 +187,7 @@ public class Runner {
         }
         return count;
     }
+    
+    /* ******** Finding the length of a loop in a chained linked list ******** */
 
 }
