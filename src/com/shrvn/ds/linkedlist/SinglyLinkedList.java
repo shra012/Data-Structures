@@ -1,6 +1,10 @@
 package com.shrvn.ds.linkedlist;
 
+import com.shrvn.ds.linkedlist.ctci.Runner;
+
 public class SinglyLinkedList<E> {
+	public final static String MERGE_SORT = "MERGESORT";
+	public final static String QUICK_SORT = "QUICKSORT";
 	// ---------------- nested Node class ---------------//
 	public static class Node<E> {
 		private E element;                     // reference to the element stored at this node
@@ -26,16 +30,16 @@ public class SinglyLinkedList<E> {
 		@Override
 		public String toString() { return element.toString(); }
 
-        @Override
-        public boolean equals(Object obj) {
-            @SuppressWarnings("unchecked")
+		@Override
+		public boolean equals(Object obj) {
+			@SuppressWarnings("unchecked")
 			E compareElement = ((Node<E>) obj).getElement();
-            E element = this.getElement();
-            if(element==null && compareElement==null) return true;
-            if(element==null) return false;
-            return element.equals(compareElement);
-        }
-    }
+			E element = this.getElement();
+			if(element==null && compareElement==null) return true;
+			if(element==null) return false;
+			return element.equals(compareElement);
+		}
+	}
 
 	// ----------- end of nested Node class -----------//
 
@@ -48,15 +52,15 @@ public class SinglyLinkedList<E> {
 		// constructs an initially empty list
 	}
 
-    public void increaseSize() {
-	    if(isEmpty()) return;
-        size+=1;
-    }
+	public void increaseSize() {
+		if(isEmpty()) return;
+		size+=1;
+	}
 
-    public void decreaseSize() {
-        if(isEmpty()) return;
-        size-=1;
-    }
+	public void decreaseSize() {
+		if(isEmpty()) return;
+		size-=1;
+	}
 
 	public int size() {
 		return size;
@@ -84,14 +88,14 @@ public class SinglyLinkedList<E> {
 		return head;
 	}
 
-    /**
-     * @return tail (but does not remove) the first element
-     */
-    public Node<E> getTail() {
-        if (isEmpty())
-            return null;
-        return tail;
-    }
+	/**
+	 * @return tail (but does not remove) the first element
+	 */
+	public Node<E> getTail() {
+		if (isEmpty())
+			return null;
+		return tail;
+	}
 
 	/**
 	 * @return last (but does not remove) the last element
@@ -203,19 +207,19 @@ public class SinglyLinkedList<E> {
 	}
 	// -------Length methods of Singly Linked List------//
 
-    /**
-     * Finds the length of the LinkedList recursively.
-     * @return Integer The length of the linked list.
-     */
+	/**
+	 * Finds the length of the LinkedList recursively.
+	 * @return Integer The length of the linked list.
+	 */
 	public Integer recursiveLength() {
 		return  recursiveLength(head);
 	}
 
-    /**
-     * Finds the length of the LinkedList recursively.
-     * @param current the node which is to be incremented until the next link is null.
-     * * @return Integer The length of the linked list.
-     */
+	/**
+	 * Finds the length of the LinkedList recursively.
+	 * @param current the node which is to be incremented until the next link is null.
+	 * * @return Integer The length of the linked list.
+	 */
 	private Integer recursiveLength(Node<E> current) {
 		return current!=null ? recursiveLength(current.getNext())+1 : 0;
 	}
@@ -258,10 +262,10 @@ public class SinglyLinkedList<E> {
 	 * @return The element at the index.
 	 */
 	public E getElement(Integer index){
-	    if(head==null ) return null;
-	    Node<E> expected = getElement(head,index);
-	    return expected!=null?expected.getElement():null;
-    }
+		if(head==null ) return null;
+		Node<E> expected = getElement(head,index);
+		return expected!=null?expected.getElement():null;
+	}
 
 	/**
 	 * Takes head pointer of the linked list and index
@@ -309,37 +313,78 @@ public class SinglyLinkedList<E> {
 
 	// -------Sorting methods of Singly Linked List------//
 
+	public void sort(String type) {
+		if(null==type || type.isEmpty()) return;
+
+		switch(type) {
+		case MERGE_SORT :{
+			mergeSort(getHead());
+			break;
+		}
+		case QUICK_SORT :{
+			break;
+		}
+		default : assert false : "Invalid input please use MergeSort or QuickSort";
+		}
+	}
+
+	private Node<E> mergeSort(Node<E> current) {
+		if(isEmpty() || current.getNext()==null) return null;
+		Node<E> midNode = getMidNode(current);
+		Node<E> midNodeNext = midNode.getNext();
+		midNode.setNext(null);
+		Runner run = new Runner();
+		System.out.print("First  :");
+		run.printLinkedList(current);
+		System.out.print("Second :");
+		run.printLinkedList(midNodeNext);
+		Node<E> left = mergeSort(current);
+		Node<E> right = mergeSort(midNodeNext);
+		return null;
+	}
 	// -------Special Techniques of Singly Linked List------//
-    public void removeDuplicates(){
-	    Node<E> current = head;
-	    while(current!=null){
-	        Node<E> previous = current;
-            Node<E> after = current.getNext();
-	        while(after!=null){
-	            if(current.getElement().equals(after.getElement())){
-	                previous.setNext(after.getNext());
-	                decreaseSize();
-                    after = after.getNext();
-                }else {
-                    previous = after;
-                    after = after.getNext();
-                }
-            }
-	        current=current.getNext();
-        }
-    }
+	public void removeDuplicates(){
+		Node<E> current = head;
+		while(current!=null){
+			Node<E> previous = current;
+			Node<E> after = current.getNext();
+			while(after!=null){
+				if(current.getElement().equals(after.getElement())){
+					previous.setNext(after.getNext());
+					decreaseSize();
+					after = after.getNext();
+				}else {
+					previous = after;
+					after = after.getNext();
+				}
+			}
+			current=current.getNext();
+		}
+	}
+	/**
+	 * Used the Runner Technique to find the middle node of the linked list
+	 * @return Node<E> The middle node of the linked list.
+	 */
+	public Node<E> getMidNode(Node<E> current) {
+		//basic checks
+		if(current==null) return null;
+		if(current.getNext()==null) return current;
+		//implementation
+		Node<E> fastPointer = current.getNext();
+		Node<E> slowPointer = current;
+		
+		while (fastPointer!=null && fastPointer.getNext() != null) {
+			fastPointer = fastPointer.getNext().getNext();         // fast pointer updates two nodes per iteration
+			slowPointer = slowPointer.getNext();                     // slow pointer updates each node per iteration
+		}
+		return slowPointer;
+	}
 	/**
 	 * Used the Runner Technique to find the middle node of the linked list
 	 * @return Node<E> The middle node of the linked list.
 	 */
 	public Node<E> getMidNode() {
-		Node<E> current = head;
-		Node<E> midNode = head;
-		while (current!=null && current.getNext() != null) {
-			current = current.getNext().getNext();         // fast pointer updates two nodes per iteration
-			midNode = midNode.getNext();                     // slow pointer updates each node per iteration
-		}
-		return midNode;
+		return getMidNode(getHead());
 	}
 
 	/**

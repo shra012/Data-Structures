@@ -7,10 +7,13 @@ import com.shrvn.ds.stack.ArrayStack;
 public class Runner {
     public static void main(String[] args) {
         Runner run = new Runner();
-
-        /*System.out.println(list.toString());
+        /**
+         * Test for Runner Technique and Weaving Algorithms. 
+         */
+        /*SinglyLinkedList<Integer> list = createList(1,2);
+        System.out.println(list.toString());
         run.printLinkedList(list.getMidNode());
-        list.weave(list.getHead(),list.getMidNode());
+        list.weave(list.getHead(),list.getMidNode().getNext());
         run.printLinkedList(list.getHead());*/
         //run.printLinkedList(run.sortedMerge(list.getHead(), list1.getHead()));
         /**
@@ -48,11 +51,13 @@ public class Runner {
         //System.out.println(run.removeDuplicate(list));
         run.removeRecursiveDuplicate(list.getHead());
         run.printLinkedList(list.getHead());*/
-        SinglyLinkedList<Integer> list = createList(1, 23, 2, 2, 3, 3, 3, 23, 23);
+        SinglyLinkedList<Integer> list = createList(2, 4, 1, 6, 8, 5, 3, 7);
         run.printLinkedList(list.getHead());
+        list.sort(SinglyLinkedList.MERGE_SORT);
         //list.removeDuplicates();
-        run.printLinkedList(run.sortedMerge(list.getHead(), list.getMidNode()));
     }
+    
+    
     /* Methods for removing Duplicates start*/
     public <E> SinglyLinkedList<E> removeDuplicate(SinglyLinkedList<E> list){
         Node<E> current = list.getHead();
