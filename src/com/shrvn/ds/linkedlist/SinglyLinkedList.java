@@ -1,10 +1,10 @@
 package com.shrvn.ds.linkedlist;
 
-import com.shrvn.ds.linkedlist.ctci.Runner;
+import java.util.Comparator;
 
-public class SinglyLinkedList<E> {
-	public final static String MERGE_SORT = "MERGESORT";
-	public final static String QUICK_SORT = "QUICKSORT";
+import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
+
+public class  SinglyLinkedList<E> {
 	// ---------------- nested Node class ---------------//
 	public static class Node<E> {
 		private E element;                     // reference to the element stored at this node
@@ -13,6 +13,11 @@ public class SinglyLinkedList<E> {
 		public Node(E e, Node<E> n) {
 			element = e;
 			next = n;
+		}
+
+		public Node(E e) {
+			element = e;
+			next = null;
 		}
 
 		public E getElement() {
@@ -312,38 +317,81 @@ public class SinglyLinkedList<E> {
 	}
 
 	// -------Sorting methods of Singly Linked List------//
-
-	public void sort(String type) {
-		if(null==type || type.isEmpty()) return;
-
-		switch(type) {
-		case MERGE_SORT :{
-			mergeSort(getHead());
-			break;
-		}
-		case QUICK_SORT :{
-			break;
-		}
-		default : assert false : "Invalid input please use MergeSort or QuickSort";
-		}
+	/**
+	 * Uses Merge Sort to sort the linked list based on the comparator provided.
+	 * @param c Comparator which compares two objects by the defined logic.
+	 */
+	public void sort(Comparator<? super E> c) {
+		Node<E> sortedHead = mergeSort(getHead(),c);
+		head = sortedHead;
 	}
-
-	private Node<E> mergeSort(Node<E> current) {
-		if(isEmpty() || current.getNext()==null) return null;
+	/**
+	 * The best sorting algorithm to get a sorted linked list in O(n log n)
+	 * @param current Node which undergoes the sorting
+	 * @param c Comparator which compares two objects by the defined logic.
+	 * @return
+	 */
+	private Node<E> mergeSort(Node<E> current,Comparator<? super E> c) {
+		if(isEmpty() || current.getNext()==null) return current;
 		Node<E> midNode = getMidNode(current);
 		Node<E> midNodeNext = midNode.getNext();
 		midNode.setNext(null);
-		Runner run = new Runner();
-		System.out.print("First  :");
-		run.printLinkedList(current);
-		System.out.print("Second :");
-		run.printLinkedList(midNodeNext);
-		Node<E> left = mergeSort(current);
-		Node<E> right = mergeSort(midNodeNext);
-		return null;
+		//Runner run = new Runner();
+		//System.out.print("First  :");
+		//run.printLinkedList(current);
+		//System.out.print("Second :");
+		//run.printLinkedList(midNodeNext);
+		Node<E> left = mergeSort(current,c);
+		Node<E> right= mergeSort(midNodeNext,c);
+		Node<E> result = sortedMerge(left,right,c);
+		return result;
+	}
+
+	/**
+	 * Merge two sorted linked list.
+	 * @param first Node object which is to be merged with <code>second</code> list
+	 * @param second Node object which is to be merged with <code>first</code> list
+	 * @param c Comparator which compares two objects is used for the merge to maintain the sorted order.
+	 * @return Node the head <code>Node</code> of the linked list
+	 */
+	private Node<E> sortedMerge(Node<E> first,Node<E> second,Comparator<? super E> c){
+		Node<E> newNodeHead = new Node<E>(first.getElement());
+		Node<E> newNode = newNodeHead;
+		while(first!=null || second!=null) {
+			if(first==null) {
+				newNode.setNext(second);
+				second=second.getNext();
+			}else if(second==null) {
+				newNode.setNext(first);
+				first=first.getNext();
+			}else if(c.compare(first.getElement(), second.getElement()) >= 0 ) {
+				newNode.setNext(second);
+				second=second.getNext();
+			}else {
+				newNode.setNext(first);
+				first=first.getNext();
+			}
+			newNode = newNode.getNext();
+		}
+		return newNodeHead.getNext();
 	}
 	// -------Special Techniques of Singly Linked List------//
 	public void removeDuplicates(){
+		if(isEmpty()) return;
+		removeDuplicates(head);
+	}
+
+	public void removeDuplicates(Node<E> current){
+
+		if(current.getNext()==null) return;
+		if(current.getElement() == current.getNext().getElement() ) {
+			current.setNext(current.getNext().getNext());
+			removeDuplicates(current);
+		}else {
+			removeDuplicates(current.getNext());
+		}
+	}
+	public void abolishDuplicates(){
 		Node<E> current = head;
 		while(current!=null){
 			Node<E> previous = current;
@@ -372,7 +420,7 @@ public class SinglyLinkedList<E> {
 		//implementation
 		Node<E> fastPointer = current.getNext();
 		Node<E> slowPointer = current;
-		
+
 		while (fastPointer!=null && fastPointer.getNext() != null) {
 			fastPointer = fastPointer.getNext().getNext();         // fast pointer updates two nodes per iteration
 			slowPointer = slowPointer.getNext();                     // slow pointer updates each node per iteration
