@@ -2,8 +2,6 @@ package com.shrvn.ds.linkedlist;
 
 import java.util.Comparator;
 
-import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
-
 public class  SinglyLinkedList<E> {
 	// ---------------- nested Node class ---------------//
 	public static class Node<E> {
@@ -73,6 +71,22 @@ public class  SinglyLinkedList<E> {
 
 	public boolean isEmpty() {
 		return size == 0;
+	}
+	
+	
+	/**
+	 * Method to update the head of the list
+	 * @param head
+	 */
+	public void setHead(Node<E> head) {
+		this.head = head;
+	}
+	/**
+	 * Method to update the tail of the list
+	 * @param tail
+	 */
+	public void setTail(Node<E> tail) {
+		this.tail = tail;
 	}
 
 	/**

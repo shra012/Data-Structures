@@ -1,13 +1,11 @@
 package com.shrvn.ds.linkedlist.ctci;
 
-import java.util.Comparator;
-
 import com.shrvn.ds.linkedlist.SinglyLinkedList;
 import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
 import com.shrvn.ds.stack.ArrayStack;
 
 public class Runner {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Runner run = new Runner();
 		/**
 		 * Test for Runner Technique and Weaving Algorithms. 
@@ -70,6 +68,75 @@ public class Runner {
 		run.printLinkedList(list.getHead());
 		list.removeDuplicates();
 		run.printLinkedList(list.getHead());*/
+		/**
+		 * Method to swap two nodes
+		 */
+		
+		SinglyLinkedList<Integer> list = createList(1,2,3,4,5);
+		run.printLinkedList(list.getHead());
+		run.swap(list, 1, 4);
+		run.printLinkedList(list.getHead());
+	}
+	
+	
+	public <E> SinglyLinkedList<E> swap(SinglyLinkedList<E> list,E first,E second) throws Exception{
+		Node<E> previous=null,firstPrevious=null,secondPrevious=null,firstNode=null,secondNode=null;
+		Node<E> head = list.getHead();
+		Node<E> current = head.getNext();
+		if(list.isEmpty()) return null;
+		if(head.getElement().equals(first)) {
+			firstNode = head;
+			list.setHead(head.getNext());
+			list.decreaseSize();
+		}else if(head.getElement().equals(second)) {
+			secondNode = head;
+			list.setHead(head.getNext());
+			list.decreaseSize();
+		}
+		
+		while(current.getNext()!=null){
+			if(current.getElement().equals(first)) {
+				firstNode = current;
+				firstPrevious = previous==null?head:previous;
+				firstPrevious.setNext(firstNode.getNext());
+				list.decreaseSize();
+			}else if(current.getElement().equals(second)) {
+				secondNode = current;
+				secondPrevious = previous==null?head:previous;
+				secondPrevious.setNext(secondNode.getNext());
+				list.decreaseSize();
+			}
+			previous = current;
+			current = current.getNext();
+		}
+		
+		if(firstNode== null || secondNode == null) {
+			throw new Exception("The Requested Element does not exists in the list");
+		}else {
+			if(secondPrevious==null) {
+				firstNode.setNext(head);
+				list.setHead(firstNode);
+				list.increaseSize();
+			}else {
+				firstNode.setNext(secondPrevious.getNext());
+				secondPrevious.setNext(firstNode);
+				list.increaseSize();
+			}
+			
+			if(firstPrevious==null) {
+				secondNode.setNext(head);
+				list.setHead(secondNode);
+				list.increaseSize();
+			}else {
+				secondNode.setNext(firstPrevious.getNext());
+				firstPrevious.setNext(secondNode);
+				list.increaseSize();
+			}
+			
+			
+		}
+		
+		return list;
 	}
 
 
