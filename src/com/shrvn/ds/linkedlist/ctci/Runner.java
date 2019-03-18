@@ -71,71 +71,63 @@ public class Runner {
 		/**
 		 * Method to swap two nodes
 		 */
-		
+
 		SinglyLinkedList<Integer> list = createList(1,2,3,4,5);
 		run.printLinkedList(list.getHead());
 		run.swap(list, 1, 4);
 		run.printLinkedList(list.getHead());
 	}
-	
-	
+
+
 	public <E> SinglyLinkedList<E> swap(SinglyLinkedList<E> list,E first,E second) throws Exception{
-		Node<E> previous=null,firstPrevious=null,secondPrevious=null,firstNode=null,secondNode=null;
-		Node<E> head = list.getHead();
-		Node<E> current = head.getNext();
 		if(list.isEmpty()) return null;
-		if(head.getElement().equals(first)) {
-			firstNode = head;
-			list.setHead(head.getNext());
-			list.decreaseSize();
-		}else if(head.getElement().equals(second)) {
-			secondNode = head;
-			list.setHead(head.getNext());
-			list.decreaseSize();
-		}
+		// Store the references of the Previous Node Current Node and the Next Node.
+		Node<E> previous=null,
+				firstPrevious=null,secondPrevious=null,
+				firstNode=null,secondNode=null,
+				secondNext=null,firstNext=null;
 		
+		Node<E> current = list.getHead();
+		// Loop through all the elements to find if both the values exists and store all the required references.
 		while(current.getNext()!=null){
 			if(current.getElement().equals(first)) {
+				firstPrevious = previous;
 				firstNode = current;
-				firstPrevious = previous==null?head:previous;
-				firstPrevious.setNext(firstNode.getNext());
-				list.decreaseSize();
+				firstNext = firstNode.getNext();
 			}else if(current.getElement().equals(second)) {
+				secondPrevious = previous;
 				secondNode = current;
-				secondPrevious = previous==null?head:previous;
-				secondPrevious.setNext(secondNode.getNext());
-				list.decreaseSize();
+				secondNext = secondNode.getNext();
 			}
 			previous = current;
 			current = current.getNext();
 		}
-		
+		// Update the tail accordingly.
+		if(secondNext==null) {
+			list.setTail(firstNode);
+		}else if(firstNext == null) {
+			list.setTail(secondNode);
+		}
+			
 		if(firstNode== null || secondNode == null) {
 			throw new Exception("The Requested Element does not exists in the list");
-		}else {
-			if(secondPrevious==null) {
-				firstNode.setNext(head);
-				list.setHead(firstNode);
-				list.increaseSize();
-			}else {
-				firstNode.setNext(secondPrevious.getNext());
-				secondPrevious.setNext(firstNode);
-				list.increaseSize();
-			}
-			
-			if(firstPrevious==null) {
-				secondNode.setNext(head);
-				list.setHead(secondNode);
-				list.increaseSize();
-			}else {
-				secondNode.setNext(firstPrevious.getNext());
+		}else {// If first element is not head of linked list 
+			if (firstPrevious != null) 
 				firstPrevious.setNext(secondNode);
-				list.increaseSize();
-			}
-			
-			
+			else //If first element is the head of linked list 
+				list.setHead(secondNode); 
+
+			// If second element is not head of linked list 
+			if (secondPrevious != null) 
+				secondPrevious.setNext(firstNode); 
+			else // If second element is the head of linked list 
+				list.setHead(firstNode);
 		}
-		
+		// Swap next pointers 
+		Node<E> temp = firstNode.getNext(); 
+		firstNode.setNext(secondNode.getNext()); 
+		secondNode.setNext(temp); 
+
 		return list;
 	}
 
