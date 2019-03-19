@@ -78,7 +78,7 @@ public class Runner {
 		run.printLinkedList(list.getHead());
 	}
 
-
+	/* ******** Method for Swapping two Nodes of a linked list ******** */
 	public <E> SinglyLinkedList<E> swap(SinglyLinkedList<E> list,E first,E second) throws Exception{
 		if(list.isEmpty()) return null;
 		// Store the references of the Previous Node Current Node and the Next Node.
