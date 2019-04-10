@@ -54,6 +54,27 @@ public class  SinglyLinkedList<E> {
 	public SinglyLinkedList() {
 		// constructs an initially empty list
 	}
+	
+	/**
+	 * Implementation of the equals method for linked list.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if(null==o) return false;
+		if(getClass() != o.getClass()) return false;
+		SinglyLinkedList list = (SinglyLinkedList) o;
+		if(size != list.size()) return false;
+		Node<E> thisHead = head;
+		Node<E> otherHead = list.getHead();
+		while(thisHead!=null) {
+			if(!thisHead.getElement().equals(otherHead.getElement())) {
+				return false;
+			}
+			thisHead = thisHead.getNext();
+			otherHead = otherHead.getNext();
+		}
+		return true;
+	}
 
 	public void increaseSize() {
 		if(isEmpty()) return;

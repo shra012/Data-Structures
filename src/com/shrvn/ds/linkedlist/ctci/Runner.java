@@ -1,5 +1,6 @@
 package com.shrvn.ds.linkedlist.ctci;
 
+import com.shrvn.ds.linkedlist.DoublyLinkedList;
 import com.shrvn.ds.linkedlist.SinglyLinkedList;
 import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
 import com.shrvn.ds.stack.ArrayStack;
@@ -52,6 +53,12 @@ public class Runner {
         run.removeRecursiveDuplicate(list.getHead());
         run.printLinkedList(list.getHead());*/
 		/**
+		 * Check if two lists are unique or equal 
+		 */
+		SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
+		DoublyLinkedList<Integer> list1 = createDoublyList(1,3,2,2,3,3,3,23,23);
+        System.out.println(list.equals(list1));
+		/**
 		 * Remove the duplicates in a given un-sorted linked list 
 		 * Method 1 : Brute Force.
 		 */
@@ -72,10 +79,11 @@ public class Runner {
 		 * Method to swap two nodes
 		 */
 
-		SinglyLinkedList<Integer> list = createList(1,2,3,4,5);
-		run.printLinkedList(list.getHead());
-		run.swap(list, 1, 4);
-		run.printLinkedList(list.getHead());
+		/*
+		 * SinglyLinkedList<Integer> list = createList(1,2,3,4,5);
+		 * run.printLinkedList(list.getHead()); run.swap(list, 1, 4);
+		 * run.printLinkedList(list.getHead());
+		 */
 	}
 
 	/* ******** Method for Swapping two Nodes of a linked list ******** */
@@ -164,6 +172,15 @@ public class Runner {
 	@SafeVarargs // Added safe variable arguments to avoid heap pollution Refer https://softwareengineering.stackexchange.com/questions/155994/java-heap-pollution.
 	public static <E> SinglyLinkedList<E> createList(E... args){
 		SinglyLinkedList<E> list = new SinglyLinkedList<E>();
+		for(E arg : args){
+			list.addLast(arg);
+		}
+		return list;
+	}
+	/* Method for creating the Linked List */
+	@SafeVarargs // Added safe variable arguments to avoid heap pollution Refer https://softwareengineering.stackexchange.com/questions/155994/java-heap-pollution.
+	public static <E> DoublyLinkedList<E> createDoublyList(E... args){
+		DoublyLinkedList<E> list = new DoublyLinkedList<E>();
 		for(E arg : args){
 			list.addLast(arg);
 		}
