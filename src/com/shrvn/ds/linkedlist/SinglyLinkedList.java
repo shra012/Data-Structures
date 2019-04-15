@@ -2,7 +2,7 @@ package com.shrvn.ds.linkedlist;
 
 import java.util.Comparator;
 
-public class  SinglyLinkedList<E> {
+public class  SinglyLinkedList<E> implements Cloneable {
 	// ---------------- nested Node class ---------------//
 	public static class Node<E> {
 		private E element;                     // reference to the element stored at this node
@@ -59,13 +59,14 @@ public class  SinglyLinkedList<E> {
 	 * Implementation of the equals method for linked list.
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean equals(Object o) {
 		if(null==o) return false;
 		if(getClass() != o.getClass()) return false;
-		SinglyLinkedList list = (SinglyLinkedList) o;
+		SinglyLinkedList<?> list = (SinglyLinkedList<?>) o;
 		if(size != list.size()) return false;
 		Node<E> thisHead = head;
-		Node<E> otherHead = list.getHead();
+		Node<E> otherHead = (Node<E>) list.getHead();
 		while(thisHead!=null) {
 			if(!thisHead.getElement().equals(otherHead.getElement())) {
 				return false;
@@ -74,6 +75,27 @@ public class  SinglyLinkedList<E> {
 			otherHead = otherHead.getNext();
 		}
 		return true;
+	}
+	
+	/**
+	 * Implementation of the clone method for linked list.
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public Object clone() throws CloneNotSupportedException {
+		SinglyLinkedList<E> clone =  (SinglyLinkedList<E>) super.clone();
+		if(size>0) {
+			clone.head  = new Node<E>(head.getElement(),null);
+			Node<E> walk = head.getNext();
+			Node<E> cloneTail = clone.head;
+			while(walk!=null) {
+				Node<E> newNode  = new Node<E>(walk.getElement(),null);
+				cloneTail.setNext(newNode);
+				cloneTail = newNode;
+				walk = walk.getNext();
+			}
+		}
+		return clone;
 	}
 
 	public void increaseSize() {

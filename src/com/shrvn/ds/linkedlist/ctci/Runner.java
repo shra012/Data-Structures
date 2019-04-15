@@ -7,6 +7,7 @@ import com.shrvn.ds.stack.ArrayStack;
 
 public class Runner {
 	public static void main(String[] args) throws Exception {
+		@SuppressWarnings("unused")
 		Runner run = new Runner();
 		/**
 		 * Test for Runner Technique and Weaving Algorithms. 
@@ -55,9 +56,19 @@ public class Runner {
 		/**
 		 * Check if two lists are unique or equal 
 		 */
-		SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
-		DoublyLinkedList<Integer> list1 = createDoublyList(1,3,2,2,3,3,3,23,23);
-        System.out.println(list.equals(list1));
+		/*
+		 * SinglyLinkedList<Integer> list = createList(1,2,2,2,3,3,3,23,23);
+		 * DoublyLinkedList<Integer> list1 = createDoublyList(1,3,2,2,3,3,3,23,23);
+		 * System.out.println(list.equals(list1));
+		 */
+        /**
+		 * Implementation of clone
+		 */
+		/*
+		 * @SuppressWarnings("unchecked") SinglyLinkedList<Integer> list2 =
+		 * (SinglyLinkedList<Integer>)list.clone();
+		 * System.out.println(list.equals(list2));
+		 */
 		/**
 		 * Remove the duplicates in a given un-sorted linked list 
 		 * Method 1 : Brute Force.
