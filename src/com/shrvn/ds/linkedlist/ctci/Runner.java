@@ -183,6 +183,7 @@ public class Runner {
 	@SafeVarargs // Added safe variable arguments to avoid heap pollution Refer https://softwareengineering.stackexchange.com/questions/155994/java-heap-pollution.
 	public static <E> SinglyLinkedList<E> createList(E... args){
 		SinglyLinkedList<E> list = new SinglyLinkedList<E>();
+		if(null==args) return list;
 		for(E arg : args){
 			list.addLast(arg);
 		}
