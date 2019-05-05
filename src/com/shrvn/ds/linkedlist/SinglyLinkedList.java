@@ -92,9 +92,15 @@ public class  SinglyLinkedList<E> {
 			return null;
 		return head;
 	}
+    /**
+     * @param head set the node that has to be the start of the linked list
+     */
+    public void setHead(Node<E> head) {
+        this.head = head;
+    }
 
-	/**
-	 * @return tail (but does not remove) the first element
+    /**
+	 * @return tail (but does not remove) the last element
 	 */
 	public Node<E> getTail() {
 		if (isEmpty())
@@ -102,7 +108,14 @@ public class  SinglyLinkedList<E> {
 		return tail;
 	}
 
-	/**
+    /**
+     * @param tail set the node that has to be the end of the linked list
+     */
+    public void setTail(Node<E> tail) {
+        this.tail = tail;
+    }
+
+    /**
 	 * @return last (but does not remove) the last element
 	 */
 	public E last() {
