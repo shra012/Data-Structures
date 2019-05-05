@@ -115,22 +115,6 @@ public class  SinglyLinkedList<E> implements Cloneable {
 	public boolean isEmpty() {
 		return size == 0;
 	}
-	
-	
-	/**
-	 * Method to update the head of the list
-	 * @param head
-	 */
-	public void setHead(Node<E> head) {
-		this.head = head;
-	}
-	/**
-	 * Method to update the tail of the list
-	 * @param tail
-	 */
-	public void setTail(Node<E> tail) {
-		this.tail = tail;
-	}
 
 	/**
 	 * @return head (but does not remove) the first element
