@@ -509,4 +509,21 @@ public class  SinglyLinkedList<E> implements Cloneable {
 			second = tempSecond;
 		}
 	}
+
+	/**
+	 * This methods creates a singly linked list with the elements that are passed as var args.
+	 * Each element passed creates a node and is added to the tail of the linked list one by one
+	 * @param args The elements of the nodes that are to be created
+	 * @param <E> The Generic Type input.
+	 * @return
+	 */
+	@SafeVarargs // Added safe variable arguments to avoid heap pollution Refer https://softwareengineering.stackexchange.com/questions/155994/java-heap-pollution.
+	public static <E> SinglyLinkedList<E> createList(E... args){
+		SinglyLinkedList<E> list = new SinglyLinkedList<E>();
+		if(null==args) return list;
+		for(E arg : args){
+			list.addLast(arg);
+		}
+		return list;
+	}
 }
