@@ -2,9 +2,7 @@ package com.shrvn.ds.linkedlist;
 
 import java.util.Comparator;
 
-import com.shrvn.ds.linkedlist.SinglyLinkedList.Node;
-
-public class  SinglyLinkedList<E> {
+public class  SinglyLinkedList<E> implements Cloneable {
 	// ---------------- nested Node class ---------------//
 	public static class Node<E> {
 		private E element;                     // reference to the element stored at this node
@@ -56,6 +54,49 @@ public class  SinglyLinkedList<E> {
 	public SinglyLinkedList() {
 		// constructs an initially empty list
 	}
+	
+	/**
+	 * Implementation of the equals method for linked list.
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean equals(Object o) {
+		if(null==o) return false;
+		if(getClass() != o.getClass()) return false;
+		SinglyLinkedList<?> list = (SinglyLinkedList<?>) o;
+		if(size != list.size()) return false;
+		Node<E> thisHead = head;
+		Node<E> otherHead = (Node<E>) list.getHead();
+		while(thisHead!=null) {
+			if(!thisHead.getElement().equals(otherHead.getElement())) {
+				return false;
+			}
+			thisHead = thisHead.getNext();
+			otherHead = otherHead.getNext();
+		}
+		return true;
+	}
+	
+	/**
+	 * Implementation of the clone method for linked list.
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public Object clone() throws CloneNotSupportedException {
+		SinglyLinkedList<E> clone =  (SinglyLinkedList<E>) super.clone();
+		if(size>0) {
+			clone.head  = new Node<E>(head.getElement(),null);
+			Node<E> walk = head.getNext();
+			Node<E> cloneTail = clone.head;
+			while(walk!=null) {
+				Node<E> newNode  = new Node<E>(walk.getElement(),null);
+				cloneTail.setNext(newNode);
+				cloneTail = newNode;
+				walk = walk.getNext();
+			}
+		}
+		return clone;
+	}
 
 	public void increaseSize() {
 		if(isEmpty()) return;
@@ -73,6 +114,22 @@ public class  SinglyLinkedList<E> {
 
 	public boolean isEmpty() {
 		return size == 0;
+	}
+	
+	
+	/**
+	 * Method to update the head of the list
+	 * @param head
+	 */
+	public void setHead(Node<E> head) {
+		this.head = head;
+	}
+	/**
+	 * Method to update the tail of the list
+	 * @param tail
+	 */
+	public void setTail(Node<E> tail) {
+		this.tail = tail;
 	}
 
 	/**
