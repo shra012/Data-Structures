@@ -5,4 +5,5 @@ git rm --cached .classpath
 *.class
 .idea
 .settings
+bin
 .bin
